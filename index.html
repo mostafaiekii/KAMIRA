@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KAMIRA | کامیرا — ساخته مصطفی مروتی</title>
+<meta name="description" content="کامیرا: شبکه خصوصی دفاتر املاک با بانک اطلاعاتی امن، موتور تطبیق هوشمند فایل و مشتری، دستیار هوشمند کاوه و پنل مدیریت مرکزی.">
+<meta name="theme-color" content="#050510">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET & TOKENS ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050510; --bg2:#0a0b1e;
+  --glass:rgba(255,255,255,.055);
+  --glass2:rgba(255,255,255,.09);
+  --border:rgba(255,255,255,.13);
+  --border2:rgba(255,255,255,.25);
+  --txt:#eef0ff; --muted:#9aa3c7; --dim:#6b7399;
+  --violet:#8b5cf6; --cyan:#22d3ee; --pink:#f472b6;
+  --green:#34d399; --amber:#fbbf24; --red:#f87171;
+  --grad:linear-gradient(120deg,#8b5cf6 10%,#22d3ee 90%);
+  --grad2:linear-gradient(120deg,#f472b6,#8b5cf6);
+  --shadow:0 20px 60px rgba(0,0,0,.55);
+  --glowV:0 0 34px rgba(139,92,246,.4);
+  --glowC:0 0 34px rgba(34,211,238,.35);
+  --r:22px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+html,body{overflow-x:clip}
+body{
+  font-family:'Vazirmatn','Segoe UI',Tahoma,sans-serif;
+  background:var(--bg); color:var(--txt);
+  line-height:1.85; -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(139,92,246,.5)}
+img,svg,canvas{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.container{width:min(1180px,92%);margin-inline:auto;position:relative;z-index:2}
+section{position:relative;padding:clamp(64px,9vw,120px) 0}
+.ltr{direction:ltr;unicode-bidi:isolate;font-family:'Vazirmatn',monospace}
+/* ============ BACKGROUND FX ============ */
+#bgwrap{position:fixed;inset:0;z-index:0;overflow:clip;pointer-events:none;background:
+  radial-gradient(1200px 700px at 85% -10%, rgba(139,92,246,.16), transparent 60%),
+  radial-gradient(1000px 600px at -10% 40%, rgba(34,211,238,.12), transparent 60%),
+  radial-gradient(900px 700px at 50% 110%, rgba(244,114,182,.10), transparent 60%),
+  linear-gradient(180deg,#050510,#0a0b1e 55%,#050510)}
+#bgwrap::before{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000 30%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000 30%,transparent 75%)}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:drift 16s ease-in-out infinite alternate}
+.orb.o1{width:44vw;height:44vw;max-width:640px;max-height:640px;top:-12%;right:-8%;background:radial-gradient(circle,#7c3aed,transparent 65%)}
+.orb.o2{width:38vw;height:38vw;max-width:560px;max-height:560px;top:38%;left:-12%;background:radial-gradient(circle,#0891b2,transparent 65%);animation-delay:-6s}
+.orb.o3{width:34vw;height:34vw;max-width:480px;max-height:480px;bottom:-14%;right:24%;background:radial-gradient(circle,#db2777,transparent 65%);animation-delay:-11s;opacity:.35}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,-46px) scale(1.12)}}
+#stars{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.8}
+/* ============ GLASS ============ */
+.glass{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);
+  backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.09);position:relative}
+.glass::after{content:"";position:absolute;top:0;right:8%;left:8%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);pointer-events:none}
+/* ============ NAV ============ */
+#progress{position:fixed;top:0;right:0;height:3px;width:0;background:var(--grad);z-index:60;box-shadow:var(--glowV)}
+nav{position:fixed;top:14px;right:0;left:0;z-index:50}
+.nav-in{width:min(1180px,94%);margin-inline:auto;display:flex;align-items:center;gap:14px;
+  padding:10px 16px;border-radius:60px;background:rgba(10,11,30,.55);border:1px solid var(--border);
+  backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.06rem;letter-spacing:.5px;white-space:nowrap}
+.logo .lg-ic{width:34px;height:34px;border-radius:11px;background:var(--grad);display:grid;place-items:center;
+  font-size:1.05rem;box-shadow:var(--glowV);flex:none}
+.logo b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;gap:4px;margin-inline-start:auto;overflow-x:auto;scrollbar-width:none;max-width:70%}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{padding:7px 13px;border-radius:40px;font-size:.83rem;color:var(--muted);white-space:nowrap;transition:.25s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav-cta{flex:none;padding:8px 18px;border-radius:40px;background:var(--grad);font-weight:800;font-size:.85rem;
+  box-shadow:var(--glowV);transition:.3s}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(139,92,246,.55)}
+@media(max-width:640px){.nav-cta{display:none}.logo span{display:none}}
+/* ============ HERO ============ */
+.hero{min-height:100svh;display:flex;align-items:center;padding-top:110px}
+.hero-in{text-align:center;max-width:880px;margin-inline:auto}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:50px;font-size:.85rem;
+  background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.4);color:#cdd4ff;margin-bottom:26px;
+  box-shadow:0 0 24px rgba(139,92,246,.2)}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.35}}
+h1.title{font-size:clamp(2.4rem,7.5vw,4.6rem);font-weight:900;line-height:1.35;margin-bottom:10px}
+h1.title .grad{background:linear-gradient(110deg,#a78bfa 5%,#22d3ee 50%,#f472b6 95%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 26px rgba(139,92,246,.45))}
+.hero-sub{font-size:clamp(1rem,2.2vw,1.22rem);color:var(--muted);max-width:720px;margin:0 auto 36px}
+.hero-sub b{color:#fff}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:50px;font-weight:800;font-size:.98rem;transition:.3s}
+.btn-main{background:var(--grad);box-shadow:var(--glowV)}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(139,92,246,.6)}
+.btn-ghost{border:1px solid var(--border2);background:rgba(255,255,255,.05);backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:760px;margin-inline:auto}
+.hstat{padding:18px 10px;border-radius:18px;text-align:center}
+.hstat .n{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hstat .l{font-size:.78rem;color:var(--muted);margin-top:4px}
+@media(max-width:640px){.hero-stats{grid-template-columns:repeat(2,1fr)}}
+.float-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+.fchip{padding:8px 18px;border-radius:50px;font-size:.82rem;color:var(--muted);border:1px solid var(--border);
+  background:rgba(255,255,255,.04);backdrop-filter:blur(8px);transition:.3s}
+.fchip:hover{color:#fff;border-color:var(--border2);transform:translateY(-3px);box-shadow:var(--glowC)}
+.scroll-hint{position:absolute;bottom:22px;right:50%;transform:translateX(50%);color:var(--dim);font-size:.8rem;text-align:center;animation:bob 2s infinite}
+@keyframes bob{50%{transform:translateX(50%) translateY(-8px)}}
+/* ============ SECTION HEADERS ============ */
+.sec-head{text-align:center;max-width:760px;margin:0 auto clamp(38px,6vw,64px)}
+.sec-tag{display:inline-block;padding:6px 18px;border-radius:50px;font-size:.8rem;font-weight:700;
+  background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.35);color:#a5f3fc;margin-bottom:16px;letter-spacing:.5px}
+.sec-head h2{font-size:clamp(1.7rem,4.6vw,2.7rem);font-weight:900;line-height:1.4}
+.sec-head h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec-head p{color:var(--muted);margin-top:14px;font-size:clamp(.95rem,2vw,1.05rem)}
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+/* ============ COMPARE ============ */
+.cmp{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch}
+.cmp-card{padding:clamp(22px,3.5vw,36px)}
+.cmp-card h3{font-size:1.2rem;font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.cmp-card .tagline{font-size:.85rem;color:var(--dim);margin-bottom:20px}
+.cmp-card ul{list-style:none;display:grid;gap:12px}
+.cmp-card li{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:var(--muted)}
+.cmp-card li b{color:#e6e9ff;font-weight:600}
+.li-ic{flex:none;width:22px;height:22px;border-radius:8px;display:grid;place-items:center;font-size:.72rem;margin-top:3px}
+.bad-ic{background:rgba(248,113,113,.14);border:1px solid rgba(248,113,113,.4);color:var(--red)}
+.good-ic{background:rgba(52,211,153,.14);border:1px solid rgba(52,211,153,.45);color:var(--green)}
+.cmp-card.old{opacity:.92}
+.cmp-card.new{border-color:rgba(139,92,246,.5);box-shadow:var(--shadow),0 0 44px rgba(139,92,246,.22),inset 0 1px 0 rgba(255,255,255,.09)}
+.cmp-vs{align-self:center;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:1.15rem;
+  background:var(--grad2);box-shadow:0 0 34px rgba(244,114,182,.45);flex:none}
+@media(max-width:900px){.cmp{grid-template-columns:1fr}.cmp-vs{justify-self:center;transform:rotate(90deg)}}
+</style>
+<style>
+/* ============ FEATURES GRID ============ */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:16px}
+.f-card{padding:26px 22px;border-radius:20px;transition:transform .35s,border-color .35s,box-shadow .35s;will-change:transform}
+.f-card:hover{transform:translateY(-7px);border-color:rgba(139,92,246,.55);box-shadow:var(--shadow),0 0 40px rgba(139,92,246,.22)}
+.f-ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;margin-bottom:16px;
+  background:rgba(139,92,246,.14);border:1px solid rgba(139,92,246,.4)}
+.f-card:nth-child(3n+2) .f-ic{background:rgba(34,211,238,.12);border-color:rgba(34,211,238,.4)}
+.f-card:nth-child(3n) .f-ic{background:rgba(244,114,182,.12);border-color:rgba(244,114,182,.4)}
+.f-card h3{font-size:1.02rem;font-weight:800;margin-bottom:8px}
+.f-card p{font-size:.87rem;color:var(--muted)}
+.f-num{position:absolute;top:14px;left:16px;font-size:.72rem;color:var(--dim);border:1px solid var(--border);border-radius:30px;padding:2px 10px}
+/* ============ MOCKUP / DEVICE ============ */
+.device{max-width:1150px;margin-inline:auto;border-radius:26px;overflow:hidden;border:1px solid var(--border2);
+  box-shadow:var(--shadow),0 0 80px rgba(139,92,246,.18),inset 0 1px 0 rgba(255,255,255,.08);
+  background:rgba(9,10,26,.75);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%)}
+.mock-top{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,.035)}
+.tdots{display:flex;gap:6px;flex:none}
+.tdots i{width:11px;height:11px;border-radius:50%;display:block}
+.tdots i:nth-child(1){background:#f87171}.tdots i:nth-child(2){background:#fbbf24}.tdots i:nth-child(3){background:#34d399}
+.mock-url{flex:1;direction:ltr;text-align:center;font-size:.8rem;color:var(--muted);background:rgba(0,0,0,.35);
+  border-radius:30px;padding:6px 16px;border:1px solid var(--border);max-width:420px;margin-inline:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mock-secure{flex:none;font-size:.75rem;color:var(--green);white-space:nowrap}
+.mock-body{display:flex;min-height:540px}
+.mock-side{width:218px;flex:none;border-left:1px solid var(--border);padding:18px 12px;display:flex;flex-direction:column;gap:6px;
+  background:rgba(255,255,255,.025)}
+.side-title{font-size:.72rem;color:var(--dim);padding:4px 12px;letter-spacing:1px}
+.side-btn{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:13px;font-size:.9rem;color:var(--muted);
+  transition:.25s;border:1px solid transparent;text-align:right;width:100%}
+.side-btn .ic{font-size:1.05rem;flex:none}
+.side-btn:hover{background:rgba(255,255,255,.06);color:#fff}
+.side-btn.active{background:linear-gradient(120deg,rgba(139,92,246,.25),rgba(34,211,238,.14));border-color:rgba(139,92,246,.5);color:#fff;box-shadow:0 0 20px rgba(139,92,246,.15)}
+.side-user{margin-top:auto;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-weight:900;font-size:.9rem;flex:none;box-shadow:var(--glowV)}
+.side-user .nm{font-size:.85rem;font-weight:700}
+.side-user .rl{font-size:.7rem;color:var(--dim)}
+.mock-main{flex:1;min-width:0;padding:22px;display:flex;flex-direction:column;gap:16px}
+.mock-tabs-mob{display:none}
+@media(max-width:900px){
+  .mock-side{display:none}
+  .mock-tabs-mob{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .mock-tabs-mob::-webkit-scrollbar{display:none}
+  .mock-tabs-mob button{flex:none;padding:8px 16px;border-radius:30px;font-size:.82rem;color:var(--muted);border:1px solid var(--border);background:rgba(255,255,255,.04)}
+  .mock-tabs-mob button.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:var(--glowV)}
+  .mock-body{min-height:480px}
+}
+/* panes */
+.pane{display:none}
+.pane.active{display:block;animation:paneIn .5s ease}
+@keyframes paneIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.pane-title{display:flex;align-items:center;gap:10px;font-size:1.05rem;font-weight:800;margin-bottom:4px}
+.pane-title .en{font-size:.72rem;color:var(--dim);font-weight:400}
+.pane-desc{font-size:.8rem;color:var(--dim);margin-bottom:14px}
+/* dashboard */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{padding:16px;border-radius:16px;border:1px solid var(--border);background:rgba(255,255,255,.04)}
+.kpi .v{font-size:1.5rem;font-weight:900}
+.kpi .t{font-size:.75rem;color:var(--muted);margin-top:2px}
+.kpi .d{font-size:.68rem;margin-top:6px;display:inline-block;padding:1px 8px;border-radius:20px}
+.up{color:var(--green);background:rgba(52,211,153,.12)}
+.dash-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:12px}
+@media(max-width:700px){.dash-grid{grid-template-columns:1fr}}
+.panel{border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.04);padding:16px;min-width:0}
+.panel h4{font-size:.9rem;font-weight:800;margin-bottom:12px}
+.feed{list-style:none;display:grid;gap:0}
+.feed li{display:flex;gap:12px;font-size:.82rem;color:var(--muted);padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.07)}
+.feed li:last-child{border-bottom:none}
+.feed .fdot{flex:none;width:9px;height:9px;border-radius:50%;margin-top:9px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.feed li b{color:#e6e9ff;font-weight:600}
+.feed .tm{margin-inline-start:auto;font-size:.7rem;color:var(--dim);flex:none}
+/* files */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{padding:7px 16px;border-radius:30px;font-size:.8rem;color:var(--muted);border:1px solid var(--border);background:rgba(255,255,255,.04);transition:.25s}
+.chip.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:var(--glowV)}
+.flist{display:grid;gap:10px}
+.frow{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:15px;border:1px solid var(--border);
+  background:rgba(255,255,255,.04);transition:.3s;min-width:0;flex-wrap:wrap}
+.frow:hover{border-color:rgba(34,211,238,.5);background:rgba(255,255,255,.07)}
+.frow .thumb{flex:none;width:52px;height:52px;border-radius:13px;display:grid;place-items:center;font-size:1.4rem;
+  background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.35)}
+.frow .info{flex:1;min-width:170px}
+.frow .t1{font-size:.92rem;font-weight:700}
+.frow .t2{font-size:.76rem;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;margin-top:2px}
+.frow .price{font-weight:900;font-size:.95rem;white-space:nowrap;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.badge{font-size:.68rem;padding:3px 10px;border-radius:30px;border:1px solid;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
+.b-ok{color:var(--green);border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.1)}
+.b-pend{color:var(--amber);border-color:rgba(251,191,36,.5);background:rgba(251,191,36,.1)}
+.b-lock{color:#c4b5fd;border-color:rgba(139,92,246,.5);background:rgba(139,92,246,.12)}
+.b-share{color:#67e8f9;border-color:rgba(34,211,238,.5);background:rgba(34,211,238,.1)}
+.b-warn{color:var(--red);border-color:rgba(248,113,113,.5);background:rgba(248,113,113,.1)}
+.b-source{color:var(--muted);border-color:var(--border);background:rgba(255,255,255,.05)}
+.frow.warn{border-color:rgba(251,191,36,.55);box-shadow:0 0 26px rgba(251,191,36,.12)}
+/* clients */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.ccard{padding:16px;border-radius:16px;border:1px solid var(--border);background:rgba(255,255,255,.04);display:flex;flex-direction:column;gap:10px;transition:.3s}
+.ccard:hover{border-color:rgba(244,114,182,.5);transform:translateY(-4px)}
+.ccard .nm{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem}
+.ccard .crit{display:flex;gap:6px;flex-wrap:wrap}
+.ccard .crit span{font-size:.7rem;color:var(--muted);border:1px solid var(--border);padding:2px 10px;border-radius:20px}
+.mini-btn{margin-top:auto;width:100%;padding:9px;border-radius:12px;font-size:.8rem;font-weight:700;
+  border:1px solid rgba(139,92,246,.5);background:rgba(139,92,246,.14);color:#d6c9ff;transition:.25s}
+.mini-btn:hover{background:rgba(139,92,246,.3);box-shadow:var(--glowV)}
+.mini-btn.done{border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.12);color:var(--green)}
+/* matching */
+.match-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:14px}
+@media(max-width:760px){.match-grid{grid-template-columns:1fr}}
+.buyer-box{padding:18px;border-radius:16px;border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.06)}
+.buyer-box h4{font-size:.95rem;margin-bottom:12px;display:flex;gap:8px;align-items:center}
+.brow{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.brow:last-of-type{border-bottom:none}
+.brow b{color:#fff;font-weight:700}
+.run-btn{width:100%;margin-top:14px;padding:12px;border-radius:14px;background:var(--grad);font-weight:800;font-size:.9rem;box-shadow:var(--glowV);transition:.3s}
+.run-btn:hover{transform:translateY(-2px)}
+.run-btn:disabled{opacity:.55;cursor:wait}
+.mlog{margin-top:12px;display:none;flex-direction:column;gap:6px}
+.mlog.show{display:flex}
+.mlog span{font-size:.76rem;color:#a5f3fc;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.3);border-radius:10px;padding:6px 12px;opacity:0;animation:logIn .4s forwards}
+@keyframes logIn{to{opacity:1}}
+.pbar{height:7px;border-radius:20px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:12px;display:none}
+.pbar.show{display:block}
+.pbar i{display:block;height:100%;width:0;background:var(--grad);border-radius:20px;transition:width 2.6s ease;box-shadow:0 0 12px rgba(139,92,246,.8)}
+.results{display:none;flex-direction:column;gap:10px}
+.results.show{display:flex}
+.rcard{padding:16px;border-radius:15px;border:1px solid var(--border);background:rgba(255,255,255,.04);opacity:0;animation:paneIn .5s forwards}
+.rcard .rt{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
+.rcard .nm{font-weight:800;font-size:.92rem}
+.score{font-weight:900;font-size:1.05rem}
+.s-bar{height:8px;border-radius:20px;background:rgba(255,255,255,.08);margin-top:10px;overflow:hidden}
+.s-bar i{display:block;height:100%;width:0;border-radius:20px;transition:width 1.2s ease .3s}
+.s-bar.v i{background:linear-gradient(90deg,#34d399,#22d3ee);box-shadow:0 0 12px rgba(52,211,153,.7)}
+.s-bar.m i{background:linear-gradient(90deg,#8b5cf6,#f472b6);box-shadow:0 0 12px rgba(139,92,246,.7)}
+.coop{margin-top:4px;padding:16px;border-radius:15px;border:1px dashed rgba(244,114,182,.55);background:rgba(244,114,182,.07)}
+.coop b{color:#f9a8d4}
+.coop p{font-size:.83rem;color:var(--muted);margin-top:6px}
+/* chat */
+.chat-wrap{display:grid;grid-template-columns:1fr 250px;gap:12px}
+@media(max-width:760px){.chat-wrap{grid-template-columns:1fr}}
+.chat{border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.04);display:flex;flex-direction:column;height:430px;min-width:0}
+.chat-head{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);background:rgba(139,92,246,.08)}
+.kav-av{width:42px;height:42px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:1.2rem;flex:none;box-shadow:var(--glowV);animation:pulse 2.4s infinite}
+.chat-head .nm{font-weight:900;font-size:.95rem}
+.chat-head .st{font-size:.72rem;color:var(--green)}
+.chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin}
+.msg{max-width:85%;padding:11px 15px;border-radius:16px;font-size:.86rem;line-height:1.8;animation:paneIn .4s}
+.msg.bot{align-self:flex-start;background:rgba(139,92,246,.16);border:1px solid rgba(139,92,246,.4);border-top-right-radius:4px}
+.msg.usr{align-self:flex-end;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.4);border-top-left-radius:4px}
+.msg .priv{display:block;font-size:.68rem;color:var(--dim);margin-top:6px;border-top:1px dashed rgba(255,255,255,.15);padding-top:6px}
+.typing{align-self:flex-start;display:none;gap:5px;padding:13px 18px;background:rgba(139,92,246,.16);border:1px solid rgba(139,92,246,.4);border-radius:16px}
+.typing.show{display:flex}
+.typing i{width:7px;height:7px;border-radius:50%;background:#c4b5fd;animation:tp 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes tp{30%{transform:translateY(-5px);opacity:.4}}
+.chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border)}
+.chat-input input{flex:1;min-width:0;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:#fff;font-family:inherit;font-size:.84rem;outline:none}
+.chat-input input:focus{border-color:rgba(139,92,246,.6)}
+.chat-input button{flex:none;width:42px;border-radius:12px;background:var(--grad);display:grid;place-items:center;font-size:1rem;box-shadow:var(--glowV)}
+.chat-hint{font-size:.7rem;color:var(--dim);text-align:center;padding:8px;border-top:1px dashed rgba(255,255,255,.1)}
+.kav-side{display:flex;flex-direction:column;gap:8px}
+.kav-side .kt{font-size:.75rem;color:var(--dim);letter-spacing:1px}
+.qchip{text-align:right;padding:11px 14px;border-radius:13px;font-size:.8rem;color:var(--muted);border:1px solid var(--border);
+  background:rgba(255,255,255,.04);transition:.25s;line-height:1.6}
+.qchip:hover{border-color:rgba(34,211,238,.6);color:#fff;transform:translateX(-4px);box-shadow:var(--glowC)}
+/* admin */
+.admin-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
+@media(max-width:800px){.admin-grid{grid-template-columns:1fr}}
+.tbl-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:14px;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:520px}
+th{background:rgba(255,255,255,.06);padding:11px 14px;font-weight:800;text-align:right;white-space:nowrap;border-bottom:1px solid var(--border);font-size:.78rem;color:var(--muted)}
+td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.06);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.03)}
+.act-btns{display:flex;gap:6px}
+.abtn{padding:5px 12px;border-radius:9px;font-size:.74rem;font-weight:700;border:1px solid;transition:.25s}
+.abtn.ok{color:var(--green);border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.1)}
+.abtn.no{color:var(--red);border-color:rgba(248,113,113,.5);background:rgba(248,113,113,.1)}
+.abtn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.alert{display:flex;gap:12px;padding:13px 15px;border-radius:14px;font-size:.82rem;align-items:flex-start;margin-bottom:10px;border:1px solid}
+.alert.warn{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.45);color:#fde68a}
+.alert.bad{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.45);color:#fecaca}
+.alert b{display:block;color:#fff;font-weight:700;margin-bottom:2px;font-size:.85rem}
+.alert .aic{flex:none;font-size:1.1rem;margin-top:2px}
+/* toast */
+#toast{position:fixed;bottom:26px;right:50%;transform:translateX(50%) translateY(80px);z-index:80;padding:13px 26px;border-radius:50px;
+  background:rgba(20,22,48,.9);border:1px solid rgba(139,92,246,.6);backdrop-filter:blur(16px);font-size:.87rem;font-weight:600;
+  box-shadow:0 10px 40px rgba(0,0,0,.5),var(--glowV);opacity:0;transition:.4s;pointer-events:none;max-width:92vw;text-align:center}
+#toast.show{transform:translateX(50%) translateY(0);opacity:1}
+/* ============ ARCHITECTURE ============ */
+.stack{display:grid;gap:12px;max-width:860px;margin-inline:auto}
+.layer{display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:18px}
+.layer .ln{flex:none;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-weight:900;font-size:1.1rem;
+  background:var(--grad);color:#fff;box-shadow:var(--glowV)}
+.layer .li{flex:1;min-width:0}
+.layer .lt{font-weight:800;font-size:1rem}
+.layer .ld{font-size:.82rem;color:var(--muted);margin-top:2px}
+.layer .techs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.layer .techs span{font-size:.7rem;padding:2px 10px;border-radius:20px;border:1px solid rgba(34,211,238,.4);color:#a5f3fc;background:rgba(34,211,238,.07)}
+.layer:nth-child(2n) .ln{background:var(--grad2);box-shadow:0 0 30px rgba(244,114,182,.4)}
+.connector{text-align:center;color:var(--dim);font-size:.9rem;line-height:.6;margin:-4px 0}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:34px}
+.pillar{padding:24px;border-radius:18px;border-top:2px solid}
+.pillar.p1{border-color:var(--violet)}.pillar.p2{border-color:var(--cyan)}.pillar.p3{border-color:var(--pink)}
+.pillar .pi{font-size:1.7rem;margin-bottom:12px}
+.pillar h3{font-size:1rem;font-weight:800;margin-bottom:8px}
+.pillar p{font-size:.85rem;color:var(--muted)}
+/* ============ ROADMAP ============ */
+.phases{display:grid;gap:16px;max-width:900px;margin-inline:auto;position:relative}
+.phase{display:flex;gap:18px;padding:22px;border-radius:18px;position:relative}
+.phase .pnum{flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-weight:900;font-size:1.2rem;background:var(--grad);box-shadow:var(--glowV)}
+.phase h3{font-size:1.05rem;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.weeks{font-size:.72rem;padding:3px 12px;border-radius:30px;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.4);color:#a5f3fc;font-weight:700}
+.phase ul{list-style:none;margin-top:10px;display:grid;gap:6px}
+.phase li{font-size:.85rem;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.phase li::before{content:"◆";font-size:.55rem;margin-top:9px;color:var(--cyan);flex:none}
+.phase.locked{opacity:.75}
+.phase.locked .pnum{background:rgba(255,255,255,.12);box-shadow:none;border:1px dashed var(--border2)}
+/* ============ COSTS ============ */
+.cost-note{font-size:.82rem;color:var(--dim);max-width:760px;margin:14px auto 0;text-align:center}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:26px}
+.svc{padding:18px;border-radius:16px;text-align:center}
+.svc .si{font-size:1.6rem;margin-bottom:8px}
+.svc b{font-size:.9rem;display:block}
+.svc span{font-size:.78rem;color:var(--muted)}
+/* ============ FAQ ============ */
+.faqs{max-width:820px;margin-inline:auto;display:grid;gap:10px}
+details.faq{border-radius:16px;overflow:hidden}
+details.faq summary{list-style:none;padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;font-weight:700;font-size:.95rem;transition:.3s}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary:hover{background:rgba(255,255,255,.05)}
+details.faq summary .qi{flex:none;width:30px;height:30px;border-radius:10px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.4);display:grid;place-items:center;font-size:.85rem}
+details.faq summary .plus{margin-inline-start:auto;flex:none;transition:.3s;color:var(--muted);font-size:1.1rem}
+details.faq[open] summary .plus{transform:rotate(45deg);color:var(--cyan)}
+details.faq .ans{padding:0 22px 20px 22px;font-size:.87rem;color:var(--muted);line-height:2}
+details.faq .ans b{color:#e6e9ff}
+/* ============ FOOTER ============ */
+.footer{padding-bottom:40px}
+.final{padding:clamp(30px,5vw,54px);text-align:center;border-radius:26px;border-color:rgba(139,92,246,.5);
+  box-shadow:var(--shadow),0 0 70px rgba(139,92,246,.2),inset 0 1px 0 rgba(255,255,255,.1)}
+.final h2{font-size:clamp(1.5rem,4vw,2.3rem);font-weight:900;margin-bottom:14px}
+.final p{color:var(--muted);max-width:640px;margin:0 auto 26px;font-size:.95rem}
+.copyright{text-align:center;color:var(--dim);font-size:.76rem;margin-top:34px}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div id="bgwrap"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-in">
+    <a class="logo" href="#hero"><span class="lg-ic">◉</span><b>KAMIRA</b><span style="color:var(--muted);font-size:.78rem;font-weight:400">| کامیرا · ساخته مصطفی مروتی</span></a>
+    <div class="nav-links">
+      <a href="#compare">چرا کامیرا؟</a>
+      <a href="#features">امکانات</a>
+      <a href="#demo">دموی زنده</a>
+      <a href="#arch">معماری</a>
+      <a href="#roadmap">نقشه راه</a>
+      <a href="#cost">هزینه‌ها</a>
+      <a href="#faq">پاسخ به شرایط</a>
+    </div>
+    <a class="nav-cta" href="#demo">مشاهده دمو</a>
+  </div>
+</nav>
+<!-- ============ HERO ============ -->
+<header class="hero" id="hero">
+  <div class="container hero-in">
+    <div class="badge"><span class="dot"></span> نسخه ۱٫۰ — طراحی و توسعه: مصطفی مروتی</div>
+    <h1 class="title">کامیرا؛ آنجا که <span class="grad">فایل و مشتری</span><br>در امنیتِ یک شبکهٔ خصوصی می‌درخشند</h1>
+    <p class="hero-sub">نه دیوار، نه شیپور. کامیرا یک <b>شبکه خصوصی دفاتر املاک</b> است: بانک اطلاعاتی محرمانهٔ فایل‌ها و مشتریان، موتور تطبیق هوشمند، احراز هویت واقعی با کد ملی و دستیار هوشمند «کاوه» — همه زیر یک مدیریت مرکزی شفاف.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-main" href="#demo">🚀 تماشای دموی زنده</a>
+      <a class="btn btn-ghost" href="#arch">🧬 معماری فنی</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat glass"><div class="n"><span class="num" data-n="11">۰</span></div><div class="l">ماژول تعریف‌شده در سند پروژه</div></div>
+      <div class="hstat glass"><div class="n"><span class="num" data-n="9">۰</span></div><div class="l">ماژول در فاز اول (هسته اصلی)</div></div>
+      <div class="hstat glass"><div class="n"><span class="num" data-n="100">۰</span>٪</div><div class="l">مالکیت کد و داده برای کارفرما</div></div>
+      <div class="hstat glass"><div class="n"><span class="num" data-n="3">۰</span></div><div class="l">فاز اجرا با تحویل مرحله‌ای</div></div>
+    </div>
+    <div class="float-chips">
+      <span class="fchip">🔐 احراز هویت کد ملی</span>
+      <span class="fchip">🏦 بانک فایل خصوصی</span>
+      <span class="fchip">🤝 همکاری بین دفاتر</span>
+      <span class="fchip">🧠 موتور تطبیق هوشمند</span>
+      <span class="fchip">🤖 دستیار کاوه</span>
+      <span class="fchip">🛡️ ضدتقلب و حسابرسی</span>
+    </div>
+  </div>
+  <div class="scroll-hint">▼ اسکرول کنید</div>
+</header>
+
+<!-- ============ COMPARE ============ -->
+<section id="compare">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-tag">تفاوت اساسی</span>
+      <h2>کامیرا با سایت‌های آگهی چه <span class="grad">فرقی</span> دارد؟</h2>
+      <p>سایت‌های عمومی، تابلوی اعلانات‌اند؛ کامیرا، باشگاهِ اهالی املاک است.</p>
+    </div>
+    <div class="cmp">
+      <div class="cmp-card glass old reveal">
+        <h3>🪧 پلتفرم‌های عمومی آگهی</h3>
+        <div class="tagline">دیوار، شیپور و مشابه‌ها</div>
+        <ul>
+          <li><span class="li-ic bad-ic">✕</span><span>هر کسی هر فایلی ثبت می‌کند؛ <b>مالکیت و منبع فایل نامشخص</b> است</span></li>
+          <li><span class="li-ic bad-ic">✕</span><span>اطلاعات تماس <b>در معرض دید عموم</b> و واسطه‌هاست</span></li>
+          <li><span class="li-ic bad-ic">✕</span><span>فایل تکراری، فایل جعلی و <b>مشتری صوری</b> رایج است</span></li>
+          <li><span class="li-ic bad-ic">✕</span><span>فقط جست‌وجوی ساده؛ <b>تطبیق هوشمند وجود ندارد</b></span></li>
+          <li><span class="li-ic bad-ic">✕</span><span>هویت واقعی افراد <b>احراز نمی‌شود</b></span></li>
+          <li><span class="li-ic bad-ic">✕</span><span>هیچ سابقه‌ای از همکاری و معرفی ثبت نمی‌شود</span></li>
+        </ul>
+      </div>
+      <div class="cmp-vs reveal">VS</div>
+      <div class="cmp-card glass new reveal">
+        <h3>💎 شبکه خصوصی کامیرا</h3>
+        <div class="tagline">فقط برای اعضای احرازشده: دفاتر، مشاوران، مالکان و متقاضیان</div>
+        <ul>
+          <li><span class="li-ic good-ic">✓</span><span>هر فایل با <b>منبع، مالک و سطح دسترسی</b> مشخص در بانک مرکزی ثبت می‌شود</span></li>
+          <li><span class="li-ic good-ic">✓</span><span>شماره تماس مالک و مشتری <b>فقط با مجوز</b> نمایش داده می‌شود</span></li>
+          <li><span class="li-ic good-ic">✓</span><span>سیستم <b>فایل تکراری و مشتری صوری</b> را شناسایی و علامت می‌زند</span></li>
+          <li><span class="li-ic good-ic">✓</span><span><b>موتور تطبیق</b> فایل مناسب را به مشتری مناسب وصل می‌کند</span></li>
+          <li><span class="li-ic good-ic">✓</span><span>ثبت‌نام با <b>کد ملی + موبایل</b> و هر کد ملی فقط یک حساب</span></li>
+          <li><span class="li-ic good-ic">✓</span><span>سابقه معرفی، همکاری و مراحل معامله <b>قابل پیگیری</b> است</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-tag">امکانات</span>
+      <h2>ده ستونِ <span class="grad">شبکه هوشمند</span> کامیرا</h2>
+      <p>همه ماژول‌های سند پروژه، از احراز هویت تا سهم معاملات، در یک معماری واحد طراحی می‌شوند.</p>
+    </div>
+    <div class="fgrid">
+      <div class="f-card glass reveal"><span class="f-num">بخش ۱</span><div class="f-ic">🪪</div><h3>احراز هویت واقعی</h3><p>ثبت‌نام با کد ملی و موبایل، بررسی تطابق مالکیت شماره با سرویس معتبر، هر کد ملی فقط یک حساب، و کارت عضویت دیجیتال KAMIRA ID با سطح عضویت و امتیاز.</p></div>
+      <div class="f-card glass reveal"><span class="f-num">بخش ۲</span><div class="f-ic">🏦</div><h3>بانک خصوصی فایل‌ها</h3><p>پنل اختصاصی هر دفتر برای ثبت و مدیریت فایل‌های فروش، خرید، رهن و اجاره؛ ذخیره در بانک مرکزی با ثبت منبع، مالکیت و سطح دسترسی — بدون افشای عمومی.</p></div>
+      <div class="f-card glass reveal"><span class="f-num">بخش ۳</span><div class="f-ic">👥</div><h3>بانک خصوصی مشتریان</h3><p>خریدار، فروشنده، موجر، مستأجر و سرمایه‌گذارِ هر دفتر در سیستم ثبت می‌شود؛ هیچ دفتری بدون مجوز به بانک مشتریان دفتر دیگر دسترسی ندارد.</p></div>
+      <div class="f-card glass reveal"><span class="f-num">بخش ۴</span><div class="f-ic">🧠</div><h3>موتور تطبیق هوشمند</h3><p>بر اساس بودجه، منطقه، متراژ و مشخصات، فایل مناسب به مشاور مربوطه پیشنهاد می‌شود و امکان همکاری دو دفتر با حفظ محرمانگی طرفین فراهم است.</p></div>
+      <div class="f-card glass reveal"><span class="f-num">بخش ۵</span><div class="f-ic">🤝</div><h3>معرفی و پیگیری معامله</h3><p>سابقه معرفی و همکاری ثبت می‌شود، ارتباط از طریق سیستم انجام می‌گیرد و مراحل هر معامله تا تأیید نهایی قابل پیگیری است.</p></div>
+      <div class="f-card glass reveal"><span class="f-num">بخش ۵+</span><div class="f-ic">🛡️</div><h3>سیستم ضدتقلب</h3><p>مقابله با هویت جعلی، حساب‌های تکراری، فایل غیرواقعی، مشتری صوری و دور زدن سیستم؛ همه فعالیت‌های مهم در لاگ حسابرسی ثبت می‌شود.</p></div>
+      <div class="f-card glass reveal"><span class="f-num">بخش ۶</span><div class="f-ic">⚙️</div><h3>مدیریت مرکزی</h3><p>تأیید، رد، تعلیق یا غیرفعال‌سازی فایل‌ها؛ مدیریت دسترسی دفاتر و کاربران؛ مشاهده گزارش عملکرد و منفعت ایجادشده توسط هر فرد یا دفتر.</p></div>
+      <div class="f-card glass reveal"><span class="f-num">بخش ۷ و ۸</span><div class="f-ic">💎</div><h3>امتیاز، پاداش و سهم معامله</h3><p>امتیاز فعالیت، شانس قرعه‌کشی و سهم مالی معامله سه مسیرِ مجزا هستند؛ سهم هر فرد مؤثر در معامله بر اساس درصد تعریف‌شده محاسبه و پرداخت می‌شود.</p></div>
+      <div class="f-card glass reveal"><span class="f-num">بخش ۹</span><div class="f-ic">🤖</div><h3>دستیار هوشمند کاوه</h3><p>کاوه نیاز مشتری را تحلیل می‌کند، فایل متناسب پیشنهاد می‌دهد و راهنمای بازار است — اما فقط بر اساس سطح دسترسیِ همان کاربر؛ نه یک کلمه بیشتر.</p></div>
+      <div class="f-card glass reveal"><span class="f-num">بخش ۱۰ و ۱۱</span><div class="f-ic">🏙️</div><h3>قیمت‌گذاری و بخش اجتماعی</h3><p>بازه قیمت‌گذاری منطقی با مدل توسعه‌پذیر (نه میانگین ساده)، مأموریت‌ها، قرعه‌کشی، بازی کارتی با الگوی Hamster Kombat و فضای اختصاصی KAMIRA CITY در فازهای بعد.</p></div>
+    </div>
+  </div>
+</section>
+<!-- ============ DEMO MOCKUP ============ -->
+<section id="demo">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-tag">دموی تعاملی</span>
+      <h2>پیش‌نمای زندهٔ <span class="grad">اپلیکیشن کامیرا</span></h2>
+      <p>این ماکاپ واقعی و قابل کلیک است: بین بخش‌ها جابه‌جا شوید، فیلتر کنید، تطبیق را اجرا کنید، از کاوه بپرسید و به‌عنوان مدیر مرکزی فایل تأیید کنید. اعداد و اسامی، داده نمونه‌اند.</p>
+    </div>
+
+    <div class="device reveal">
+      <div class="mock-top">
+        <div class="tdots"><i></i><i></i><i></i></div>
+        <div class="mock-url"><bdi>🔒 kamira.app/panel</bdi></div>
+        <div class="mock-secure">اتصال امن</div>
+      </div>
+      <div class="mock-body">
+        <aside class="mock-side">
+          <div class="side-title">پنل دفتر املاک آریا</div>
+          <button class="side-btn active" data-tab="p-dash"><span class="ic">📊</span>داشبورد</button>
+          <button class="side-btn" data-tab="p-files"><span class="ic">🏦</span>بانک فایل‌ها</button>
+          <button class="side-btn" data-tab="p-clients"><span class="ic">👥</span>بانک مشتریان</button>
+          <button class="side-btn" data-tab="p-match"><span class="ic">🧠</span>موتور تطبیق</button>
+          <button class="side-btn" data-tab="p-kaveh"><span class="ic">🤖</span>دستیار کاوه</button>
+          <div class="side-title" style="margin-top:10px">سطوح دیگر</div>
+          <button class="side-btn" data-tab="p-admin"><span class="ic">⚙️</span>مدیریت مرکزی</button>
+          <div class="side-user">
+            <div class="avatar">آ</div>
+            <div><div class="nm">دفتر املاک آریا</div><div class="rl">عضویت طلایی · KAMIRA ID تأییدشده</div></div>
+          </div>
+        </aside>
+        <div class="mock-main">
+          <div class="mock-tabs-mob">
+            <button class="active" data-tab="p-dash">📊 داشبورد</button>
+            <button data-tab="p-files">🏦 فایل‌ها</button>
+            <button data-tab="p-clients">👥 مشتریان</button>
+            <button data-tab="p-match">🧠 تطبیق</button>
+            <button data-tab="p-kaveh">🤖 کاوه</button>
+            <button data-tab="p-admin">⚙️ مدیریت</button>
+          </div>
+
+          <!-- PANE: DASHBOARD -->
+          <div class="pane active" id="p-dash">
+            <div class="pane-title">داشبورد دفتر املاک آریا <span class="en">Office Dashboard</span></div>
+            <div class="pane-desc">نمای کلی فعالیت دفتر شما در شبکه کامیرا — به‌روزرسانی لحظه‌ای</div>
+            <div class="kpis">
+              <div class="kpi"><div class="v num" data-n="42">۰</div><div class="t">فایل فعال در بانک خصوصی</div><span class="d up">▲ ۳ مورد این هفته</span></div>
+              <div class="kpi"><div class="v num" data-n="17">۰</div><div class="t">مشتری ثبت‌شده</div><span class="d up">▲ ۵ مورد این هفته</span></div>
+              <div class="kpi"><div class="v num" data-n="9">۰</div><div class="t">تطبیق موفق موتور هوشمند</div><span class="d up">▲ ۲ مورد امروز</span></div>
+              <div class="kpi"><div class="v num" data-n="3">۰</div><div class="t">همکاری مشترک با دفاتر</div><span class="d up">▲ ۱ مورد جدید</span></div>
+            </div>
+            <div class="dash-grid">
+              <div class="panel">
+                <h4>روند بازدید فایل‌های مجاز (۱۴ روز اخیر)</h4>
+                <svg viewBox="0 0 320 90" style="width:100%" aria-hidden="true">
+                  <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+                  <linearGradient id="lg2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="rgba(139,92,246,.35)"/><stop offset="1" stop-color="rgba(139,92,246,0)"/></linearGradient></defs>
+                  <path d="M0,70 C30,62 50,66 75,52 C100,40 125,50 150,38 C175,28 200,36 225,24 C250,16 275,22 320,8 L320,90 L0,90 Z" fill="url(#lg2)"/>
+                  <path d="M0,70 C30,62 50,66 75,52 C100,40 125,50 150,38 C175,28 200,36 225,24 C250,16 275,22 320,8" fill="none" stroke="url(#lg1)" stroke-width="2.5" stroke-linecap="round"/>
+                  <circle cx="225" cy="24" r="4" fill="#22d3ee"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/></circle>
+                </svg>
+              </div>
+              <div class="panel">
+                <h4>آخرین فعالیت‌ها</h4>
+                <ul class="feed">
+                  <li><span class="fdot"></span><span>موتور تطبیق، فایل <b>۸۵ متر سعادت‌آباد</b> را به خریدار ۲۳۴۵ پیشنهاد داد</span><span class="tm">۱۰ دقیقه پیش</span></li>
+                  <li><span class="fdot" style="background:var(--pink);box-shadow:0 0 8px var(--pink)"></span><span><b>درخواست همکاری</b> از دفتر املاک مهر برای ویلای لواسان</span><span class="tm">۱ ساعت پیش</span></li>
+                  <li><span class="fdot" style="background:var(--green);box-shadow:0 0 8px var(--green)"></span><span>فایل <b>آپارتمان ۱۱۰ متر شهرک غرب</b> توسط مدیریت مرکزی تأیید شد</span><span class="tm">۳ ساعت پیش</span></li>
+                  <li><span class="fdot" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></span><span>هشدار سیستم: احتمال <b>تکراری‌بودن</b> یکی از فایل‌ها ۹۲٪</span><span class="tm">امروز</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANE: FILES -->
+          <div class="pane" id="p-files">
+            <div class="pane-title">بانک خصوصی فایل‌ها <span class="en">Private Listing Bank</span></div>
+            <div class="pane-desc">فقط اعضای مجاز می‌بینند. منبع هر فایل ثبت است و شماره تماس مالک پشت مجوز است.</div>
+            <div class="chips" id="fileFilters">
+              <button class="chip active" data-f="all">همه (۴)</button>
+              <button class="chip" data-f="sale">فروش</button>
+              <button class="chip" data-f="rent">رهن و اجاره</button>
+              <button class="chip" data-f="shared">مشترک</button>
+            </div>
+            <div class="flist">
+              <div class="frow" data-cat="sale">
+                <div class="thumb">🏢</div>
+                <div class="info"><div class="t1">آپارتمان ۸۵ متر · سعادت‌آباد، بلوار دریا</div>
+                  <div class="t2"><span class="badge b-source">منبع: دفتر آریا</span><span class="badge b-ok">تأییدشده</span><span class="badge b-lock">🔒 دسترسی: دفاتر تأییدشده</span></div></div>
+                <div class="price">۸٬۲۰۰ میلیون تومان</div>
+              </div>
+              <div class="frow" data-cat="rent shared">
+                <div class="thumb">🏡</div>
+                <div class="info"><div class="t1">ویلا ۳۵۰ متر · لواسان، با استخر</div>
+                  <div class="t2"><span class="badge b-source">منبع: دفتر آریا</span><span class="badge b-share">🤝 مشترک با ۲ دفتر</span><span class="badge b-ok">تأییدشده</span></div></div>
+                <div class="price">رهن ۵ میلیارد + اجاره ۴۰ میلیون</div>
+              </div>
+              <div class="frow warn" data-cat="sale">
+                <div class="thumb">🏙️</div>
+                <div class="info"><div class="t1">آپارتمان ۱۱۰ متر · شهرک غرب، فاز ۲</div>
+                  <div class="t2"><span class="badge b-source">منبع: دفتر آریا</span><span class="badge b-ok">تأییدشده</span><span class="badge b-warn">⚠️ احتمال تکراری ۹۲٪</span></div></div>
+                <div class="price">۹٬۵۰۰ میلیون تومان</div>
+              </div>
+              <div class="frow" data-cat="rent">
+                <div class="thumb">🏬</div>
+                <div class="info"><div class="t1">مغازه ۳۸ متر · میدان ونک، بر اصلی</div>
+                  <div class="t2"><span class="badge b-source">منبع: دفتر آریا</span><span class="badge b-pend">در انتظار تأیید</span><span class="badge b-lock">🔒 اطلاعات تماس مخفی</span></div></div>
+                <div class="price">رهن ۳ میلیارد + اجاره ۸۵ میلیون</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANE: CLIENTS -->
+          <div class="pane" id="p-clients">
+            <div class="pane-title">بانک خصوصی مشتریان <span class="en">Private Client Bank</span></div>
+            <div class="pane-desc">مشتریان شما فقط برای خودتان و در چارچوب مجوزهای تعریف‌شده نمایش داده می‌شوند.</div>
+            <div class="cgrid">
+              <div class="ccard">
+                <div class="nm"><span class="avatar" style="width:34px;height:34px;font-size:.8rem">ک</span> خریدار · آقای ک. م.</div>
+                <div class="crit"><span>بودجه ≤ ۸٬۵۰۰ میلیون</span><span>سعادت‌آباد / شهرک غرب</span><span>۲ خواب یا بیشتر</span></div>
+                <div class="t2" style="font-size:.74rem;color:var(--dim)">📞 ۰۹۱۲ ●●● ●●●۴ — نمایش فقط با مجوز</div>
+                <button class="mini-btn req">🔓 درخواست مجوز تماس</button>
+              </div>
+              <div class="ccard">
+                <div class="nm"><span class="avatar" style="width:34px;height:34px;font-size:.8rem;background:var(--grad2)">م</span> فروشنده · خانم م. ر.</div>
+                <div class="crit"><span>زودتر از ۳ ماه</span><span>متراژ ۱۲۰ تا ۲۰۰</span><span>منطقه ۱ و ۲ تهران</span></div>
+                <div style="font-size:.74rem;color:var(--dim)">📞 ۰۹۳۵ ●●● ●●●۱ — نمایش فقط با مجوز</div>
+                <button class="mini-btn req">🔓 درخواست مجوز تماس</button>
+              </div>
+              <div class="ccard">
+                <div class="nm"><span class="avatar" style="width:34px;height:34px;font-size:.8rem;background:linear-gradient(120deg,#f472b6,#fbbf24)">س</span> متقاضی اجاره · خانواده س.</div>
+                <div class="crit"><span>رهن ≤ ۳ میلیارد</span><span>اجاره ≤ ۵۰ میلیون</span><span>نزدیک مترو</span></div>
+                <div style="font-size:.74rem;color:var(--dim)">🛡️ احراز هویت کد ملی: تأییدشده</div>
+                <button class="mini-btn req">🔓 درخواست مجوز تماس</button>
+              </div>
+              <div class="ccard">
+                <div class="nm"><span class="avatar" style="width:34px;height:34px;font-size:.8rem;background:linear-gradient(120deg,#22d3ee,#34d399)">ب</span> سرمایه‌گذار · آقای ب. ط.</div>
+                <div class="crit"><span>مشارکت در ساخت</span><span>شمال تهران</span><span>زمین ≥ ۴۰۰ متر</span></div>
+                <div style="font-size:.74rem;color:var(--dim)">🛡️ KAMIRA ID: عضویت طلایی</div>
+                <button class="mini-btn req">🔓 درخواست مجوز تماس</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANE: MATCHING -->
+          <div class="pane" id="p-match">
+            <div class="pane-title">موتور تطبیق هوشمند <span class="en">Smart Matching Engine</span></div>
+            <div class="pane-desc">کامیرا بانک فایل‌های مجاز را اسکن می‌کند و بهترین‌ها را با امتیاز تطبیق پیشنهاد می‌دهد.</div>
+            <div class="match-grid">
+              <div>
+                <div class="buyer-box">
+                  <h4>🎯 پروفایل خریدار شماره ۲۳۴۵</h4>
+                  <div class="brow"><span>بودجه حداکثری</span><b>۸٬۵۰۰ میلیون تومان</b></div>
+                  <div class="brow"><span>منطقه</span><b>سعادت‌آباد، شهرک غرب</b></div>
+                  <div class="brow"><span>متراژ</span><b>۷۵ تا ۱۲۰ متر</b></div>
+                  <div class="brow"><span>اتاق</span><b>۲ خواب یا بیشتر</b></div>
+                  <div class="brow"><span>سال ساخت</span><b>بعد از ۱۳۹۵</b></div>
+                  <button class="run-btn" id="runMatch">⚡ اجرای تطبیق هوشمند</button>
+                  <div class="pbar" id="mPbar"><i></i></div>
+                  <div class="mlog" id="mLog"></div>
+                </div>
+                <div class="coop" id="coopCard" style="display:none;margin-top:12px">
+                  <b>🤝 پیشنهاد همکاری بین دفاتر</b>
+                  <p>دفتر «مهر» خریداری مکمل برای ویلای لواسانِ شما ثبت کرده است. سیستم می‌تواند همکاری را با حفظ محرمانگی اطلاعات تماس دو طرف آغاز کند و سابقه معرفی ثبت شود.</p>
+                </div>
+              </div>
+              <div class="results" id="mResults">
+                <div class="rcard">
+                  <div class="rt"><span class="nm">🏢 آپارتمان ۸۵ متر · سعادت‌آباد — ۸٬۲۰۰ میلیون</span><span class="score" style="color:var(--green)">۹۴٪</span></div>
+                  <div class="s-bar v"><i data-w="94%"></i></div>
+                  <div style="font-size:.76rem;color:var(--muted);margin-top:8px">تطبیق: بودجه ✓ منطقه ✓ متراژ ✓ سال ساخت ✓ — منبع: دفتر آریا</div>
+                </div>
+                <div class="rcard" style="animation-delay:.2s">
+                  <div class="rt"><span class="nm">🏙️ آپارتمان ۱۱۰ متر · شهرک غرب — ۹٬۵۰۰ میلیون</span><span class="score" style="color:#c4b5fd">۷۱٪</span></div>
+                  <div class="s-bar m"><i data-w="71%"></i></div>
+                  <div style="font-size:.76rem;color:var(--muted);margin-top:8px">تطبیق: منطقه ✓ متراژ ✓ — بودجه ۱۲٪ بالاتر از سقف مشتری</div>
+                </div>
+                <div class="rcard" style="animation-delay:.4s">
+                  <div class="rt"><span class="nm">🏬 پیشنهاد جایگزین · مغازه ونک</span><span class="score" style="color:var(--amber)">۳۸٪</span></div>
+                  <div class="s-bar" style="--x:0"><i style="background:linear-gradient(90deg,#fbbf24,#f87171)" data-w="38%"></i></div>
+                  <div style="font-size:.76rem;color:var(--muted);margin-top:8px">خارج از نیاز اعلامی — برای مشاوره معرفی‌شده به کاوه</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANE: KAVEH -->
+          <div class="pane" id="p-kaveh">
+            <div class="pane-title">دستیار هوشمند کاوه <span class="en">KAVEH AI Assistant</span></div>
+            <div class="pane-desc">کاوه فقط به داده‌های مجازِ حساب شما وصل است؛ به اطلاعات دفاتر دیگر دسترسی ندارد.</div>
+            <div class="chat-wrap">
+              <div class="chat">
+                <div class="chat-head">
+                  <div class="kav-av">🤖</div>
+                  <div><div class="nm">کاوه</div><div class="st">● آنلاین — متصل به داده‌های مجاز شما</div></div>
+                </div>
+                <div class="chat-body" id="chatBody">
+                  <div class="msg bot">سلام 👋 من کاوه‌ام، دستیار هوشمند کامیرا. بر اساس فایل‌های مجازِ دفتر شما و نیازهای ثبت‌شده در سیستم می‌توانم کمکتان کنم. یکی از سؤال‌های نمونه را انتخاب کنید یا بنویسید.</div>
+                </div>
+                <div class="typing" id="typing"><i></i><i></i><i></i></div>
+                <div class="chat-input">
+                  <input id="chatIn" type="text" placeholder="سؤال خود را بنویسید…" aria-label="پیام به کاوه">
+                  <button id="chatSend" aria-label="ارسال">➤</button>
+                </div>
+                <div class="chat-hint">🛡️ پاسخ‌ها فقط از داده‌های مجازِ سطح دسترسی شما تولید می‌شوند</div>
+              </div>
+              <div class="kav-side">
+                <div class="kt">سؤال‌های نمونه</div>
+                <button class="qchip" data-q="0">🔎 «آپارتمان ۲ خواب سعادت‌آباد تا ۸.۵ میلیارد پیدا کن»</button>
+                <button class="qchip" data-q="1">📈 «بازه قیمت هر متر شهرک غرب چقدر است؟»</button>
+                <button class="qchip" data-q="2">💡 «فایل ویلای لواسان را چطور سریع‌تر معامله کنم؟»</button>
+                <button class="qchip" data-q="3">🔐 «چه کسانی به فایل‌های من دسترسی دارند؟»</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANE: ADMIN -->
+          <div class="pane" id="p-admin">
+            <div class="pane-title">مدیریت مرکزی کامیرا <span class="en">Central Admin</span></div>
+            <div class="pane-desc">نمای مدیر سیستم: صف تأیید، هشدارهای ضدتقلب و احراز هویت‌ها — دکمه‌ها واقعاً کار می‌کنند.</div>
+            <div class="admin-grid">
+              <div class="panel">
+                <h4>📋 صف تأیید فایل‌ها</h4>
+                <div class="tbl-scroll">
+                  <table>
+                    <thead><tr><th>فایل</th><th>دفتر ثبت‌کننده</th><th>وضعیت</th><th>اقدام</th></tr></thead>
+                    <tbody>
+                      <tr><td>مغازه ۳۸ متر ونک</td><td>دفتر آریا</td><td><span class="badge b-pend st-badge">در انتظار</span></td><td><div class="act-btns"><button class="abtn ok">تأیید</button><button class="abtn no">رد</button></div></td></tr>
+                      <tr><td>زمین ۶۰۰ متر پردیس</td><td>دفتر مهر</td><td><span class="badge b-pend st-badge">در انتظار</span></td><td><div class="act-btns"><button class="abtn ok">تأیید</button><button class="abtn no">رد</button></div></td></tr>
+                      <tr><td>آپارتمان ۷۵ متر تهرانپارس</td><td>دفتر نوین</td><td><span class="badge b-pend st-badge">در انتظار</span></td><td><div class="act-btns"><button class="abtn ok">تأیید</button><button class="abtn no">رد</button></div></td></tr>
+                      <tr><td>ویلای ۳۵۰ متر لواسان</td><td>دفتر آریا</td><td><span class="badge b-ok st-badge">تأییدشده</span></td><td><span style="font-size:.74rem;color:var(--dim)">—</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div>
+                <div class="panel" style="margin-bottom:12px">
+                  <h4>🚨 هشدارهای ضدتقلب</h4>
+                  <div class="alert bad"><span class="aic">⚠️</span><div><b>فایل تکراری شناسایی شد</b>آپارتمان ۱۱۰ متر شهرک غرب با فایل دفتر نوین ۹۲٪ مشابه است — هر دو زیر بازبینی قرار گرفتند.</div></div>
+                  <div class="alert warn"><span class="aic">🕵️</span><div><b>الگوی مشکوک ثبت مشتری</b>۳ مشتری با شماره‌های مرتبط در یک دفتر در ۲۴ ساعت ثبت شده‌اند — درخواست احراز هویت مجدد ارسال شد.</div></div>
+                </div>
+                <div class="panel">
+                  <h4>🪪 صف احراز هویت کاربران</h4>
+                  <ul class="feed">
+                    <li><span class="fdot" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></span><span>دفتر املاک <b>پارس</b> — منتظر استعلام کد ملی</span><span class="tm">۲ ساعت</span></li>
+                    <li><span class="fdot" style="background:var(--green);box-shadow:0 0 8px var(--green)"></span><span>مشاور <b>سارا محمدی</b> — تطابق موبایل و کد ملی تأیید شد</span><span class="tm">۴ ساعت</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============ ARCHITECTURE ============ -->
+<section id="arch">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-tag">معماری فنی</span>
+      <h2>زیرساختی <span class="grad">اصولی، امن و قابل توسعه</span></h2>
+      <p>معماری چندلایه با تفکیک کامل مسئولیت‌ها؛ کنترل دسترسی در خودِ لایه داده (Row-Level Security) پیاده می‌شود، نه فقط در کد برنامه.</p>
+    </div>
+    <div class="stack">
+      <div class="layer glass reveal"><div class="ln">۱</div><div class="li"><div class="lt">لایه تجربه کاربر — وب‌اپ ریسپانسیو (PWA)</div><div class="ld">تم شیشه‌ای دارک‌نئون، RTL کامل، عملکرد نرم روی موبایل و دسکتاپ؛ پنل‌های مجزا برای دفتر، مشاور، کاربر عادی و مدیر مرکزی با یک کدبیس مشترک.</div><div class="techs"><span>Next.js / React</span><span>TypeScript</span><span>Tailwind</span><span>PWA</span></div></div></div>
+      <div class="connector">▲▼</div>
+      <div class="layer glass reveal"><div class="ln">۲</div><div class="li"><div class="lt">لایه API و امنیت — دروازه تمام درخواست‌ها</div><div class="ld">احراز JWT و نشست امن، کنترل دسترسی نقش‌بنیاد + صفت‌بنیاد (RBAC/ABAC)، محدودسازی نرخ درخواست، اعتبارسنجی ورودی و لاگ حسابرسی کامل.</div><div class="techs"><span>NestJS</span><span>RBAC / ABAC</span><span>JWT + OTP</span><span>Audit Log</span></div></div></div>
+      <div class="connector">▲▼</div>
+      <div class="layer glass reveal"><div class="ln">۳</div><div class="li"><div class="lt">لایه هوش — تطبیق، کاوه و قیمت‌گذاری</div><div class="ld">موتور تطبیق با امتیازدهی وزنی و قوانین کسب‌وکار؛ کاوه با معماری RAG که فقط از توابع مجازِ سطح کاربر تغذیه می‌شود؛ مدل قیمت‌گذاری فاز بعدی با داده معاملات واقعی.</div><div class="techs"><span>Scoring Engine</span><span>LLM + RAG</span><span>Permission-Aware AI</span></div></div></div>
+      <div class="connector">▲▼</div>
+      <div class="layer glass reveal"><div class="ln">۴</div><div class="li"><div class="lt">لایه داده — قلب محرمانگی اطلاعات</div><div class="ld">PostgreSQL با Row-Level Security به‌ازای مالک هر رکورد؛ Redis برای کش و صف؛ جست‌وجوی سریع فایل‌ها؛ فایل‌ها در Object Storage با دسترسی امضاشده و موقت.</div><div class="techs"><span>PostgreSQL + RLS</span><span>Redis</span><span>Full-text Search</span><span>Object Storage</span></div></div></div>
+      <div class="connector">▲▼</div>
+      <div class="layer glass reveal"><div class="ln">۵</div><div class="li"><div class="lt">زیرساخت — تحویل خودکار و پایش</div><div class="ld">استقرار Docker با CI/CD، پشتیبان‌گیری خودکار روزانه، مانیتورینگ و هشدار خطا؛ سرویس‌های جانبی (پیامک، استعلام کد ملی، هوش مصنوعی) به‌صورت ماژول قابل تعویض.</div><div class="techs"><span>Docker</span><span>CI/CD</span><span>Monitoring</span><span>OpenAPI Docs</span></div></div></div>
+    </div>
+    <div class="pillars">
+      <div class="pillar glass p1 reveal"><div class="pi">🏛️</div><h3>مالکیت داده</h3><p>هر رکورد با شناسه مالک (owner_id) ثبت می‌شود و سیاست‌های RLS در خود دیتابیس اعمال می‌شوند؛ یعنی حتی اگر کسی از مسیر برنامه خارج شود، داده دفتر دیگر قابل خواندن نیست. کد کامل، دیتابیس و مستندات به کارفرما تحویل داده می‌شود.</p></div>
+      <div class="pillar glass p2 reveal"><div class="pi">🔐</div><h3>امنیت و دسترسی</h3><p>هیچ درخواستی بدون چک نقش و مجوز عبور نمی‌کند؛ حتی پاسخ‌های کاوه از همان لایه مجوز عبور می‌کنند. شماره تماس مالک و مشتری فقط با مجوز و به‌صورت ماسک‌شده نمایش داده می‌شود و هر مشاهده حساس در لاگ حسابرسی ثبت می‌شود.</p></div>
+      <div class="pillar glass p3 reveal"><div class="pi">🧬</div><h3>قابلیت توسعه</h3><p>معماری ماژولار به‌صورت «هسته + افزونه»: امتیازدهی، بازی، قرعه‌کشی و قیمت‌گذاری هوشمند بدون بازنویسی هسته اضافه می‌شوند. مهاجرت‌های نسخه‌دار دیتابیس و مستندات OpenAPI مسیر توسعه آینده را باز نگه می‌دارد.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section id="roadmap">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-tag">نقشه راه</span>
+      <h2>اجرا با <span class="grad">۴ فاز</span>؛ اول هسته، بعد رشد</h2>
+      <p>دقیقاً مطابق درخواست کارفرما: ابتدا هسته اصلی و اصولی، سپس امکانات تعاملی و هوشمندسازی.</p>
+    </div>
+    <div class="phases">
+      <div class="phase glass reveal"><div class="pnum">۰</div><div><h3>طراحی و معماری <span class="weeks">≈ ۲ هفته</span></h3><ul>
+        <li>مستند معماری فنی و مدل داده (ERD) — تأیید کارفرما پیش از شروع کدنویسی</li>
+        <li>طراحی UI/UX پنل‌ها بر اساس همین هویت بصری شیشه‌ای</li>
+        <li>دامنه‌گذاری دقیق و قیمت قطعی فاز اول</li></ul></div></div>
+      <div class="phase glass reveal"><div class="pnum">۱</div><div><h3>هسته اصلی شبکه <span class="weeks">۱۰ تا ۱۲ هفته</span></h3><ul>
+        <li>احراز هویت با کد ملی و موبایل + کارت عضویت KAMIRA ID</li>
+        <li>پنل اختصاصی دفاتر + بانک خصوصی فایل‌ها و مشتریان با سطوح دسترسی</li>
+        <li>موتور تطبیق فایل و مشتری + معرفی و پیگیری معامله</li>
+        <li>مدیریت مرکزی (تأیید فایل‌ها، مدیریت دسترسی‌ها، گزارش‌ها) + تشخیص تکراری‌ها</li>
+        <li>نسخه اولیه دستیار کاوه با کنترل دسترسی اصولی</li></ul></div></div>
+      <div class="phase glass reveal"><div class="pnum">۲</div><div><h3>امتیاز، پاداش و سهم معاملات <span class="weeks">۴ تا ۶ هفته</span></h3><ul>
+        <li>سیستم امتیازدهی فعالیت‌های تأییدشده + مأموریت‌ها</li>
+        <li>محاسبه سهم افراد از معاملات موفق با شناسه معامله، نقش و درصد</li>
+        <li>قرعه‌کشی و جوایز (سه مسیر مجزا: امتیاز / قرعه / سهم مالی)</li>
+        <li>گزارش‌های پیشرفته عملکرد برای مدیریت مرکزی</li></ul></div></div>
+      <div class="phase glass locked reveal"><div class="pnum">۳</div><div><h3>توسعه مستمر و بخش اجتماعی <span class="weeks">فاز بعدی</span></h3><ul>
+        <li>قیمت‌گذاری هوشمند و شناسایی قیمت‌های نامتعارف</li>
+        <li>بازی کارتی با الگوی Hamster Kombat و ارتقای کارت‌ها</li>
+        <li>فضای اختصاصی KAMIRA CITY و شبکه اجتماعی کاربران</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COSTS ============ -->
+<section id="cost">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-tag">برآورد هزینه</span>
+      <h2>زمان‌بندی و <span class="grad">بازه هزینه</span> هر فاز</h2>
+      <p>ارقام بازه پیشنهادی اولیه است؛ قیمت قطعی پس از تأیید معماری در فاز ۰ و مشخص‌شدن دقیق دامنه اعلام می‌شود.</p>
+    </div>
+    <div class="glass reveal" style="padding:10px">
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>فاز</th><th>خروجی اصلی</th><th>زمان</th><th>بازه هزینه (تومان)</th></tr></thead>
+          <tbody>
+            <tr><td><b>فاز ۰</b> — طراحی و معماری</td><td>مستند معماری، ERD، طراحی UI/UX</td><td>≈ ۲ هفته</td><td><b>۲۵ تا ۴۰ میلیون</b></td></tr>
+            <tr><td><b>فاز ۱</b> — هسته اصلی</td><td>احراز هویت، پنل دفاتر، بانک فایل و مشتری، تطبیق، مدیریت مرکزی، معرفی و معامله، کاوه اولیه</td><td>۱۰ تا ۱۲ هفته</td><td><b>۱۸۰ تا ۲۶۰ میلیون</b></td></tr>
+            <tr><td><b>فاز ۲</b> — رشد</td><td>امتیاز و پاداش، سهم معاملات، قرعه‌کشی، گزارش‌ها</td><td>۴ تا ۶ هفته</td><td><b>۶۰ تا ۹۰ میلیون</b></td></tr>
+            <tr><td><b>فاز ۳</b> — توسعه مستمر</td><td>قیمت‌گذاری هوشمند، بازی کارتی، KAMIRA CITY</td><td>فاز بعدی، ماژول‌به‌ماژول</td><td><b>هر ماژول جداگانه</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="cost-note">پرداخت فاز ۱ به‌صورت مرحله‌ای با تحویل نسخه‌های قابل آزمایش پیشنهاد می‌شود؛ سورس کامل، دیتابیس و مستندات فنی هر فاز تحویل و مالکیت آن به کارفرما منتقل می‌شود.</p>
+    <div class="services">
+      <div class="svc glass reveal"><div class="si">☁️</div><b>سرور و زیرساخت</b><span>از ≈ ۲ تا ۶ میلیون در ماه (بسته به ترافیک و حجم داده)</span></div>
+      <div class="svc glass reveal"><div class="si">📩</div><b>پیامک و OTP</b><span>به‌ازای هر پیام، بر اساس تعرفه پنل انتخابی</span></div>
+      <div class="svc glass reveal"><div class="si">🪪</div><b>استعلام کد ملی</b><span>به‌ازای هر استعلام، بر اساس سرویس معتبر انتخابی</span></div>
+      <div class="svc glass reveal"><div class="si">🤖</div><b>API هوش مصنوعی</b><span>متغیر بر اساس میزان گفت‌وگو با کاوه؛ با کنترل هزینه</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ (پاسخ به شرط‌های کارفرما) ============ -->
+<section id="faq">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="sec-tag">پاسخ شفاف</span>
+      <h2>پاسخ به <span class="grad">۱۰ شرط فنی</span> کارفرما</h2>
+      <p>دقیقاً همان ۱۰ پرسش انتهای سند پروژه، یک‌به‌یک.</p>
+    </div>
+    <div class="faqs">
+      <details class="faq glass reveal"><summary><span class="qi">۱</span>معماری کامل پروژه (فرانت‌اند، بک‌اند، دیتابیس) چیست؟<span class="plus">+</span></summary><div class="ans">فرانت‌اند: وب‌اپ ریسپانسیو با <b>Next.js/React و TypeScript</b>. بک‌اند: <b>NestJS</b> با معماری ماژولار و مستندات OpenAPI. دیتابیس: <b>PostgreSQL</b> (با RLS)، Redis برای کش و صف، Object Storage برای فایل‌ها. جزئیات کامل در فاز ۰ به‌صورت مستند رسمی تحویل می‌شود.</div></details>
+      <details class="faq glass reveal"><summary><span class="qi">۲</span>آیا سیستم واقعاً چند دفتر املاک را با پنل‌های مستقل مدیریت می‌کند؟<span class="plus">+</span></summary><div class="ans">بله. هر دفتر یک «مستأجر» (Tenant) با پنل، کاربران و داده‌های خودش است؛ جداسازی داده در سطح خود دیتابیس انجام می‌شود و پنل مدیریت مرکزی همه دفاتر را پایش و کنترل می‌کند.</div></details>
+      <details class="faq glass reveal"><summary><span class="qi">۳</span>آیا اطلاعات فایل‌ها و مشتریان با سطوح دسترسی ذخیره می‌شوند؟<span class="plus">+</span></summary><div class="ans">بله. هر رکورد دارای مالک و سطح دسترسی است و با <b>Row-Level Security</b> در PostgreSQL محافظت می‌شود؛ شماره تماس‌ها ماسک‌شده‌اند و افشای آن‌ها فقط با مجوز ثبت‌شده در سیستم ممکن است.</div></details>
+      <details class="faq glass reveal"><summary><span class="qi">۴</span>آیا توسعه آینده بدون بازنویسی کامل ممکن است؟<span class="plus">+</span></summary><div class="ans">معماری به‌صورت «هسته + افزونه» طراحی شده: امتیازدهی، بازی، قرعه‌کشی و قیمت‌گذاری هرکدام ماژول مستقلی هستند که به هسته وصل می‌شوند؛ مهاجرت‌های نسخه‌دار دیتابیس هم تغییرات را امن نگه می‌دارد.</div></details>
+      <details class="faq glass reveal"><summary><span class="qi">۵</span>اتصال هوش مصنوعی به بانک اطلاعاتی اصولی انجام می‌شود؟<span class="plus">+</span></summary><div class="ans">کاوه مستقیماً به دیتابیس وصل نمی‌شود؛ فقط از طریق <b>توابع مجازِ سطح کاربر</b> (Permission-Aware RAG) داده می‌گیرد، یعنی پاسخ‌هایش دقیقاً با همان محدودیت دسترسیِ خود کاربر تولید می‌شود.</div></details>
+      <details class="faq glass reveal"><summary><span class="qi">۶</span>گزارش کامل فعالیت کاربران، معرفی‌ها و معاملات هست؟<span class="plus">+</span></summary><div class="ans">بله. تمام رویدادهای مهم در <b>لاگ حسابرسی</b> ثبت می‌شود و پنل مدیریت مرکزی گزارش عملکرد هر فرد و دفتر، تاریخچه معرفی‌ها، وضعیت معاملات و سهم‌ها را نمایش می‌دهد.</div></details>
+      <details class="faq glass reveal"><summary><span class="qi">۷</span>سورس کامل، دیتابیس و مستندات تحویل می‌شود؟<span class="plus">+</span></summary><div class="ans">بله. مخزن کد، اسکریپت‌های دیتابیس و مستندات فنی هر فاز تحویل کارفرماست؛ مالکیت کامل کد و داده متعلق به کارفرماست و این موضوع در قرارداد قید می‌شود.</div></details>
+      <details class="faq glass reveal"><summary><span class="qi">۸</span>دسترسی سرور، هاست، پنل مدیریت و سرویس‌ها در اختیار کارفرماست؟<span class="plus">+</span></summary><div class="ans">بله. سرور و دامنه به نام و با کارت اعتباری خود کارفرما تهیه می‌شود و همه دسترسی‌ها (سرور، پنل مدیریت، سرویس‌های پیامک و هوش مصنوعی) در پایان پروژه منتقل می‌شود.</div></details>
+      <details class="faq glass reveal"><summary><span class="qi">۹</span>هزینه سرویس‌های جانبی چقدر است؟<span class="plus">+</span></summary><div class="ans">در بخش هزینه‌ها برآورد شده: سرور از ≈ ۲ تا ۶ میلیون در ماه، پیامک و استعلام کد ملی به‌ازای هر مورد، و API هوش مصنوعی بر اساس مصرف. همه این سرویس‌ها با حساب کارفرما فعال می‌شوند تا هزینه شفاف بماند.</div></details>
+      <details class="faq glass reveal"><summary><span class="qi">۱۰</span>برنامه پشتیبانی، رفع باگ و توسعه آینده چگونه است؟<span class="plus">+</span></summary><div class="ans">۳ ماه پشتیبانی رایگان رفع اشکال پس از تحویل هر فاز پیشنهاد می‌شود؛ سپس قرارداد نگهداشت ماهانه اختیاری (پایش، بکاپ، به‌روزرسانی امنیتی) و توسعه فازهای بعدی طبق نقشه راه.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="final glass reveal">
+      <h2>قدم بعدی: <span style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">تأیید فاز ۰</span></h2>
+      <p>این صفحه یک پیش‌نمای بصری و تعاملی از کامیراست. با تأیید فاز ۰، مستند معماری فنی، مدل داده و طراحی دقیق پنل‌ها تحویل داده می‌شود و قیمت قطعی فاز اول اعلام می‌گردد.</p>
+      <div class="hero-ctas" style="margin-bottom:0">
+        <a class="btn btn-main" href="#demo">↩ مرور دوباره دمو</a>
+        <a class="btn btn-ghost" href="#roadmap">نقشه راه اجرا</a>
+      </div>
+      <div style="margin-top:24px;padding-top:20px;border-top:1px dashed rgba(255,255,255,.18);font-weight:800;color:#c4b5fd;font-size:1.02rem">👨‍💻 طراحی، توسعه و ساخت: مصطفی مروتی</div>
+    </div>
+    <div class="copyright">KAMIRA © ۱۴۰۵ — طراحی و توسعه: مصطفی مروتی · تمام حقوق محفوظ است · داده‌های نمایشی داخل اپ نمونه هستند.</div>
+  </div>
+</footer>
+
+<div id="toast" role="status"></div>
+<script>
+(function(){
+"use strict";
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ---------- Persian digits ---------- */
+function fa(n){return n.toLocaleString('fa-IR');}
+
+/* ---------- Toast ---------- */
+var toastEl=document.getElementById('toast'),toastT;
+function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('show');},2600);}
+
+/* ---------- Scroll progress ---------- */
+var prog=document.getElementById('progress');
+window.addEventListener('scroll',function(){
+  var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+  prog.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+},{passive:true});
+
+/* ---------- Reveal ---------- */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el,i){
+  el.style.transitionDelay=(i%4)*60+'ms';io.observe(el);
+});
+
+/* ---------- Counters ---------- */
+var cio=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(!e.isIntersecting)return;cio.unobserve(e.target);
+  var el=e.target,t=parseInt(el.getAttribute('data-n'),10)||0;
+  if(reduced){el.textContent=fa(t);return;}
+  var s=null;
+  function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/1200,1);p=1-Math.pow(1-p,3);
+    el.textContent=fa(Math.round(t*p));if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+});},{threshold:.4});
+document.querySelectorAll('.num').forEach(function(el){cio.observe(el);});
+
+/* ---------- Tabs (mockup) ---------- */
+var sideBtns=document.querySelectorAll('[data-tab]');
+sideBtns.forEach(function(btn){btn.addEventListener('click',function(){
+  var id=btn.getAttribute('data-tab');
+  sideBtns.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===id);});
+  document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('active',p.id===id);});
+});});
+
+/* ---------- File filters ---------- */
+var fchips=document.querySelectorAll('#fileFilters .chip');
+var frows=document.querySelectorAll('#p-files .frow');
+fchips.forEach(function(ch){ch.addEventListener('click',function(){
+  fchips.forEach(function(c){c.classList.remove('active');});ch.classList.add('active');
+  var f=ch.getAttribute('data-f');
+  frows.forEach(function(r){r.style.display=(f==='all'||(r.getAttribute('data-cat')||'').indexOf(f)>-1)?'':'none';});
+});});
+
+/* ---------- Permission buttons ---------- */
+document.querySelectorAll('.mini-btn.req').forEach(function(b){
+  b.addEventListener('click',function(){
+    if(b.classList.contains('done'))return;
+    b.classList.add('done');b.textContent='✓ درخواست مجوز ارسال شد';
+    toast('🔐 درخواست مجوز تماس برای مالک رکورد ثبت شد — بدون مجوز نمایش داده نمی‌شود');
+  });
+});
+
+/* ---------- Matching engine ---------- */
+var runBtn=document.getElementById('runMatch'),mLog=document.getElementById('mLog'),
+    mPbar=document.getElementById('mPbar'),mRes=document.getElementById('mResults'),
+    coop=document.getElementById('coopCard'),running=false;
+var steps=['در حال دریافت پروفایل خریدار ۲۳۴۵ از بانک مشتریان…','اسکن فایل‌های مجازِ سعادت‌آباد و شهرک غرب…','حذف فایل‌های خارج از بودجه و متراژ…','حساب امتیاز تطبیق بر اساس وزن معیارها…','بررسی امکان همکاری مشترک بین دفاتر…'];
+function runMatch(){
+  if(running)return;running=true;
+  runBtn.disabled=true;runBtn.textContent='⏳ در حال تطبیق…';
+  mLog.innerHTML='';mLog.classList.add('show');
+  mRes.classList.remove('show');coop.style.display='none';
+  mPbar.classList.add('show');var bar=mPbar.querySelector('i');bar.style.width='0';
+  requestAnimationFrame(function(){bar.style.width='100%';});
+  steps.forEach(function(s,i){setTimeout(function(){
+    var sp=document.createElement('span');sp.textContent='▸ '+s;mLog.appendChild(sp);
+  },i*620);});
+  setTimeout(function(){
+    mRes.classList.add('show');
+    mRes.querySelectorAll('.s-bar i').forEach(function(i){i.style.width=i.getAttribute('data-w');});
+    coop.style.display='block';
+    runBtn.disabled=false;running=false;runBtn.textContent='⚡ اجرای دوباره تطبیق';
+    toast('🧠 ۳ فایل تطبیق‌یافته + ۱ پیشنهاد همکاری بین دفاتر پیدا شد');
+  },steps.length*620+500);
+}
+if(runBtn)runBtn.addEventListener('click',runMatch);
+
+/* ---------- KAVEH chat ---------- */
+var chatBody=document.getElementById('chatBody'),typingEl=document.getElementById('typing'),
+    chatIn=document.getElementById('chatIn'),chatSend=document.getElementById('chatSend');
+var answers=[
+ ['در محدوده اعلامی شما <b>۳ فایل مجاز</b> پیدا شد. بهترین تطبیق: <b>آپارتمان ۸۵ متر سعادت‌آباد — ۸٬۲۰۰ میلیون</b> (دفتر آریا، سال ساخت ۱۴۰۰، ۲ خواب). دو فایل دیگر در «موتور تطبیق» با امتیاز ۹۴٪ و ۷۱٪ موجود است.<span class="priv">🛡️ این پاسخ فقط از داده‌های مجازِ حساب شما ساخته شد.</span>'],
+ ['بر اساس داده‌های معتبر ثبت‌شده در کامیرا، بازه تقریبی <b>۹۵ تا ۱۱۰ میلیون به‌ازای هر متر</b> برای شهرک غرب است. فایل‌هایی که بیش از ~۲۰٪ بالای این بازه قیمت دارند، توسط سیستم «نامتعارف» علامت می‌خورند.<span class="priv">🛡️ مدل دقیق قیمت‌گذاری در فاز بعدی با داده معاملات واقعی آموزش می‌بیند.</span>'],
+ ['سه پیشنهاد کاربردی: ۱) عکس‌های تازه و نور طبیعی اضافه کنید (میانگین بازدید ~۲ برابر). ۲) قیمت را نزدیک بازه پیشنهادی کاوه تنظیم کنید. ۳) «همکاری مشترک» را فعال کنید تا ۳ دفتر همسایه نیز فایل را ببینند — همین حالا با یک کلیک.<span class="priv">🛡️ اطلاعات تماس مالک همچنان مخفی می‌ماند.</span>'],
+ ['فعلاً فقط <b>کاربران دفتر شما</b> و اعضای «دفاتر تأییدشده» در سطح دسترسی تعیین‌شده فایل‌ها را می‌بینند — بدون شماره تماس. هر مشاهده حساس در لاگ حسابرسی ثبت می‌شود و مدیر مرکزی می‌تواند همه دسترسی‌ها را ببیند یا محدود کند.<span class="priv">🛡️ شما همیشه مالکیت و سابقه دسترسی فایل خود را می‌بینید.</span>']
+];
+var tIdx=0;
+function pushMsg(html,who){
+  var d=document.createElement('div');d.className='msg '+who;d.innerHTML=html;
+  chatBody.insertBefore(d,chatBody.lastElementChild&&chatBody.lastElementChild.classList&&chatBody.lastElementChild.classList.contains('chat-input')?chatBody.lastElementChild:null);
+  chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;
+}
+function botReply(i){
+  typingEl.classList.add('show');chatBody.scrollTop=chatBody.scrollHeight;
+  setTimeout(function(){
+    typingEl.classList.remove('show');
+    pushMsg(answers[i],'bot');
+  },reduced?100:1100);
+}
+document.querySelectorAll('.qchip').forEach(function(q){
+  q.addEventListener('click',function(){
+    var i=+q.getAttribute('data-q');if(tIdx>50)return;tIdx++;
+    pushMsg(q.textContent.replace(/[«»]/g,''),'usr');botReply(i);
+  });
+});
+function sendChat(){
+  var v=(chatIn.value||'').trim();if(!v)return;
+  pushMsg(v.replace(/</g,'&lt;'),'usr');chatIn.value='';
+  botReply(Math.floor(Math.random()*answers.length));
+}
+if(chatSend)chatSend.addEventListener('click',sendChat);
+if(chatIn)chatIn.addEventListener('keydown',function(e){if(e.key==='Enter')sendChat();});
+
+/* ---------- Admin approve/reject ---------- */
+document.querySelectorAll('#p-admin .act-btns').forEach(function(wrap){
+  wrap.querySelectorAll('.abtn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var row=b.closest('tr'),badge=row.querySelector('.st-badge');
+      if(b.classList.contains('ok')){
+        badge.className='badge b-ok st-badge';badge.textContent='تأییدشده';
+        toast('✅ فایل تأیید شد و در بانک خصوصی دفاتر مجاز منتشر گردید');
+      }else{
+        badge.className='badge b-warn st-badge';badge.textContent='ردشده';
+        toast('⛔ فایل رد شد؛ دفتر ثبت‌کننده اطلاع‌رسانی و رویداد در لاگ ثبت شد');
+      }
+      row.querySelector('.act-btns').innerHTML='<span style="font-size:.74rem;color:var(--dim)">—</span>';
+    });
+  });
+});
+
+/* ---------- Tilt on feature cards (desktop only) ---------- */
+if(!reduced&&window.matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.f-card').forEach(function(c){
+    c.addEventListener('mousemove',function(e){
+      var r=c.getBoundingClientRect(),
+          x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.style.transform='translateY(-7px) perspective(800px) rotateX('+(-y*6)+'deg) rotateY('+(x*6)+'deg)';
+    });
+    c.addEventListener('mouseleave',function(){c.style.transform='';});
+  });
+}
+
+/* ---------- Particles ---------- */
+var cv=document.getElementById('stars');
+if(cv&&!reduced){
+  var ctx=cv.getContext('2d'),ps=[],W,H;
+  function size(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+  size();window.addEventListener('resize',size);
+  var COLORS=['#8b5cf6','#22d3ee','#f472b6','#ffffff'];
+  var N=window.innerWidth<640?36:70;
+  for(var i=0;i<N;i++){ps.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.4,
+    vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,c:COLORS[i%COLORS.length],a:Math.random()*.5+.15});}
+  (function loop(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<ps.length;i++){var p=ps[i];
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      ctx.globalAlpha=p.a;ctx.fillStyle=p.c;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill();}
+    ctx.globalAlpha=1;requestAnimationFrame(loop);
+  })();
+}
+})();
+</script>
+</body>
+</html>
